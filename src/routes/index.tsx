@@ -69,12 +69,12 @@ function Index() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-void text-ink">
       <div className="pointer-events-none absolute inset-0 bg-sky" />
-      <div className="pointer-events-none absolute -right-32 -top-40 size-[440px] rounded-full bg-violet/25 blur-[130px]" />
-      <div className="pointer-events-none absolute -bottom-40 -left-28 size-[460px] rounded-full bg-cyan/20 blur-[130px]" />
+      <div className="pointer-events-none absolute -right-32 -top-40 size-[440px] rounded-full bg-royal/25 blur-[130px]" />
+      <div className="pointer-events-none absolute -bottom-40 -left-28 size-[460px] rounded-full bg-emerald/20 blur-[130px]" />
       <div className="pointer-events-none absolute inset-0 opacity-60">
         <span className="animate-twinkle absolute left-[14%] top-[18%] size-1 rounded-full bg-ink/70" />
-        <span className="animate-twinkle absolute left-[70%] top-[10%] size-1 rounded-full bg-cyan/70 [animation-delay:1s]" />
-        <span className="animate-twinkle absolute left-[86%] top-[44%] size-1 rounded-full bg-violet/70 [animation-delay:2s]" />
+        <span className="animate-twinkle absolute left-[70%] top-[10%] size-1 rounded-full bg-emerald/70 [animation-delay:1s]" />
+        <span className="animate-twinkle absolute left-[86%] top-[44%] size-1 rounded-full bg-royal/70 [animation-delay:2s]" />
         <span className="animate-twinkle absolute left-[40%] top-[70%] size-1 rounded-full bg-ink/60 [animation-delay:.5s]" />
       </div>
 
@@ -89,20 +89,20 @@ function Index() {
           </div>
           <div className="flex items-center gap-2.5">
             <span className="rounded-full border border-gold/30 bg-gold/10 px-3.5 py-1.5 text-xs font-bold text-gold">🪙 {state.coins.toLocaleString()}</span>
-            <span className="rounded-full border border-rose/30 bg-rose/10 px-3.5 py-1.5 text-xs font-bold text-rose">🔥 {state.streak}</span>
+            <span className="rounded-full border border-crimson/30 bg-crimson/10 px-3.5 py-1.5 text-xs font-bold text-crimson">🔥 {state.streak}</span>
           </div>
         </header>
 
         {/* Level bar */}
         <div className="glass-panel mt-6 p-5">
           <div className="flex items-center gap-4">
-            <div className="grid size-14 shrink-0 place-items-center rounded-2xl border border-violet/40 bg-violet/15">
-              <span className="font-mono text-2xl font-extrabold text-violet">{lvl.level}</span>
+            <div className="grid size-14 shrink-0 place-items-center rounded-2xl border border-royal/40 bg-royal/15">
+              <span className="font-mono text-2xl font-extrabold text-royal">{lvl.level}</span>
             </div>
             <div className="flex-1">
               <div className="flex items-baseline justify-between gap-2">
                 <p className="eyebrow">Level {lvl.level} · {state.xp.toLocaleString()} total XP</p>
-                <span className="font-mono text-xs font-bold text-cyan">{lvl.into}/{lvl.need} XP</span>
+                <span className="font-mono text-xs font-bold text-emerald">{lvl.into}/{lvl.need} XP</span>
               </div>
               <div className="mt-2 h-3 overflow-hidden rounded-full bg-ink/10">
                 <div className="h-full rounded-full bg-xp transition-all duration-700" style={{ width: `${(lvl.into / lvl.need) * 100}%` }} />
@@ -114,14 +114,14 @@ function Index() {
 
         <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-12">
           <aside className="lg:col-span-4">
-            <div className="glass-panel p-6 shadow-violet">
+            <div className="glass-panel p-6 shadow-royal">
               <p className="eyebrow">Current streak</p>
               <div className="mt-1 flex items-end gap-2">
-                <span className="font-mono text-6xl font-extrabold leading-none text-rose">{state.streak}</span>
+                <span className="font-mono text-6xl font-extrabold leading-none text-crimson">{state.streak}</span>
                 <span className="mb-1.5 text-sm font-semibold text-ink/50">{state.streak === 1 ? "day" : "days"}</span>
               </div>
               <p className="mt-3 text-xs text-ink/50">
-                Best record <span className="font-mono font-bold text-cyan">{state.best}</span> · keep the flame alive
+                Best record <span className="font-mono font-bold text-emerald">{state.best}</span> · keep the flame alive
               </p>
               <div className="mt-6 grid grid-cols-7 gap-2">
                 {week.map((w) => {
@@ -155,7 +155,7 @@ function Index() {
           </aside>
 
           <main className="lg:col-span-8">
-            <div className="glass-panel p-5 shadow-cyan sm:p-6">
+            <div className="glass-panel p-5 shadow-emerald sm:p-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="eyebrow">Today's quests</p>
@@ -165,7 +165,7 @@ function Index() {
                   <div className="h-2.5 w-32 overflow-hidden rounded-full bg-ink/10 sm:w-40">
                     <div className="h-full rounded-full bg-xp transition-all duration-500" style={{ width: `${state.tasks.length ? (done / state.tasks.length) * 100 : 0}%` }} />
                   </div>
-                  <span className="font-mono text-xs font-bold text-cyan">{state.history[today] ?? 0} XP today</span>
+                  <span className="font-mono text-xs font-bold text-emerald">{state.history[today] ?? 0} XP today</span>
                 </div>
               </div>
 
@@ -179,7 +179,7 @@ function Index() {
                     <li
                       key={t.id}
                       className={`group rounded-2xl border px-4 py-3.5 transition-colors ${
-                        ready ? "border-cyan/30 bg-cyan/10" : t.claimed ? "border-good/25 bg-good/5" : "border-ink/10 bg-ink/5"
+                        ready ? "border-emerald/30 bg-emerald/10" : t.claimed ? "border-good/25 bg-good/5" : "border-ink/10 bg-ink/5"
                       }`}
                     >
                       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -189,7 +189,7 @@ function Index() {
                             disabled={t.claimed}
                             aria-label={t.done ? "Mark as not done" : "Mark as done"}
                             className={`grid size-6 shrink-0 place-items-center rounded-full text-xs font-bold transition ${
-                              t.claimed ? "bg-good/20 text-good" : t.done ? "bg-cyan/20 text-cyan" : "border border-ink/20 hover:border-cyan"
+                              t.claimed ? "bg-good/20 text-good" : t.done ? "bg-emerald/20 text-emerald" : "border border-ink/20 hover:border-emerald"
                             }`}
                           >
                             {t.done ? "✓" : ""}
@@ -244,7 +244,7 @@ function Index() {
                     <option value={50}>Hard · 50 XP</option>
                     <option value={80}>Epic · 80 XP</option>
                   </select>
-                  <button type="submit" className="font-mono text-xs font-bold text-violet hover:text-cyan">Enter ↵</button>
+                  <button type="submit" className="font-mono text-xs font-bold text-royal hover:text-emerald">Enter ↵</button>
                 </div>
               </form>
               <p className="mt-3 text-[11px] text-ink/35">Quests reset every day. Claim at least one reward daily to grow your streak (+2 bonus XP per streak day).</p>
@@ -274,7 +274,7 @@ function Index() {
               {state.rewards.length === 0 && <p className="text-sm text-ink/40">Complete a quest and claim your first reward.</p>}
               {state.rewards.slice(0, 4).map((r, i) => (
                 <div key={r.id} className="flex items-center gap-3">
-                  <span className={`grid size-9 place-items-center rounded-xl text-lg ${["bg-gold/15", "bg-violet/15", "bg-rose/15", "bg-cyan/15"][i % 4]}`}>
+                  <span className={`grid size-9 place-items-center rounded-xl text-lg ${["bg-gold/15", "bg-royal/15", "bg-crimson/15", "bg-emerald/15"][i % 4]}`}>
                     {["🪙", "⚡", "🎁", "💎"][i % 4]}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -300,11 +300,11 @@ function Index() {
 
       {(levelUp || event) && (
         <div className="fixed inset-0 z-40 grid place-items-center bg-void/70 p-4 backdrop-blur-sm">
-          <div className="glass-panel animate-pop w-full max-w-sm p-8 text-center shadow-violet">
+          <div className="glass-panel animate-pop w-full max-w-sm p-8 text-center shadow-royal">
             {levelUp ? (
               <>
                 <p className="eyebrow">Level up!</p>
-                <p className="mt-2 font-mono text-7xl font-extrabold text-violet">{levelUp}</p>
+                <p className="mt-2 font-mono text-7xl font-extrabold text-royal">{levelUp}</p>
                 <p className="mt-3 text-sm text-ink/60">You're getting stronger. Keep the quests coming.</p>
                 <button onClick={() => setLevelUp(null)} className="mt-6 rounded-full bg-claim px-6 py-2.5 text-sm font-extrabold text-ink shadow-claim">Continue ✦</button>
               </>
