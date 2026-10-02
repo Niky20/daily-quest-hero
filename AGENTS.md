@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Game state (tasks, XP, coins, streak) lives in src/lib/game.ts and persists to browser localStorage — no backend needed for a single-player planner.
