@@ -60,7 +60,7 @@ function Index() {
     setFloaters((f) => [...f, { id: fid, text: `+${r.xp} XP · +${r.coins} 🪙`, x: rect.left + rect.width / 2, y: rect.top }]);
     setTimeout(() => setFloaters((f) => f.filter((x) => x.id !== fid)), 1400);
     const cid = Date.now();
-    setCheer({ id: cid, text: CHEERS[Math.floor(Math.random() * CHEERS.length)] });
+    setCheer({ id: cid, text: CHEERS[Math.floor(Math.random() * CHEERS.length)] ?? CHEERS[0]! });
     setTimeout(() => setCheer((c) => (c?.id === cid ? null : c)), 3200);
     if (r.leveledTo) {
       setLevelUp(r.leveledTo);
