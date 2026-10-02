@@ -82,36 +82,32 @@ export function useGame() {
   const remove = (id: string) => update((s) => ({ ...s, tasks: s.tasks.filter((t) => t.id !== id) }));
 
   const claim = (id: string) => {
-    let leveledTo: number | null = null;
-    let reward: { xp: number; coins: number } | null = null;
-    update((s) => {
-      const t = s.tasks.find((x) => x.id === id);
-      if (!t || !t.done || t.claimed) return s;
-      const today = dayKey();
-      let { streak, best } = s;
-      if (s.lastStreakDay !== today) {
-        streak = s.lastStreakDay && daysBetween(s.lastStreakDay, today) === 1 ? streak + 1 : 1;
-        best = Math.max(best, streak);
-      }
-      const bonus = Math.min(streak, 10) * 2; // streak bonus XP
-      const xpGain = t.xp + bonus;
-      const coins = Math.round(t.xp / 4) + Math.floor(Math.random() * 6);
-      const before = levelInfo(s.xp).level;
-      const after = levelInfo(s.xp + xpGain).level;
-      if (after > before) leveledTo = after;
-      reward = { xp: xpGain, coins };
-      return {
-        ...s,
-        xp: s.xp + xpGain,
-        coins: s.coins + coins,
-        streak, best,
-        lastStreakDay: today,
-        history: { ...s.history, [today]: (s.history[today] ?? 0) + xpGain },
-        rewards: [{ id: uid(), title: t.title, xp: xpGain, coins, at: Date.now() }, ...s.rewards].slice(0, 6),
-        tasks: s.tasks.map((x) => (x.id === id ? { ...x, claimed: true } : x)),
-      };
+    const s = state;
+    if (!s) return null;
+    const t = s.tasks.find((x) => x.id === id);
+    if (!t || !t.done || t.claimed) return null;
+    const today = dayKey();
+    let { streak, best } = s;
+    if (s.lastStreakDay !== today) {
+      streak = s.lastStreakDay && daysBetween(s.lastStreakDay, today) === 1 ? streak + 1 : 1;
+      best = Math.max(best, streak);
+    }
+    const bonus = Math.min(streak, 10) * 2; // streak bonus XP
+    const xpGain = t.xp + bonus;
+    const coins = Math.round(t.xp / 4) + Math.floor(Math.random() * 6);
+    const before = levelInfo(s.xp).level;
+    const after = levelInfo(s.xp + xpGain).level;
+    setState({
+      ...s,
+      xp: s.xp + xpGain,
+      coins: s.coins + coins,
+      streak, best,
+      lastStreakDay: today,
+      history: { ...s.history, [today]: (s.history[today] ?? 0) + xpGain },
+      rewards: [{ id: uid(), title: t.title, xp: xpGain, coins, at: Date.now() }, ...s.rewards].slice(0, 6),
+      tasks: s.tasks.map((x) => (x.id === id ? { ...x, claimed: true } : x)),
     });
-    return { get leveledTo() { return leveledTo; }, get reward() { return reward; } };
+    return { xp: xpGain, coins, leveledTo: after > before ? after : null };
   };
 
   return { state, event, dismissEvent: () => setEvent(null), addTask, toggle, remove, claim };
