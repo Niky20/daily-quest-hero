@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent, type MouseEvent } from "react";
 import confetti from "canvas-confetti";
+import mascotImg from "@/assets/mascot.png";
 import { dayKey, levelInfo, STREAK_PENALTY, useGame } from "@/lib/game";
 
 export const Route = createFileRoute("/")({
@@ -17,7 +18,15 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const CONFETTI = ["#ff4d8d", "#35e6ff", "#ffcf5c", "#9b6bff", "#34d399"];
+const CONFETTI = ["#d4a63a", "#a3262a", "#2f7a4a", "#2c3e7a", "#f3e2b0"];
+const CHEERS = [
+  "Huzzah! Another quest vanquished!",
+  "By my flames, you're unstoppable!",
+  "The realm sings of your deeds!",
+  "Onward, brave hero! Glory awaits!",
+  "That's the spirit of a true champion!",
+  "Rawr! Your power grows!",
+];
 
 function Index() {
   const { state, event, dismissEvent, addTask, toggle, remove, claim } = useGame();
@@ -25,6 +34,7 @@ function Index() {
   const [xp, setXp] = useState(30);
   const [floaters, setFloaters] = useState<{ id: number; text: string; x: number; y: number }[]>([]);
   const [levelUp, setLevelUp] = useState<number | null>(null);
+  const [cheer, setCheer] = useState<{ id: number; text: string } | null>(null);
 
   if (!state) return <div className="min-h-screen bg-void" />;
 
@@ -49,6 +59,9 @@ function Index() {
     const fid = Date.now();
     setFloaters((f) => [...f, { id: fid, text: `+${r.xp} XP · +${r.coins} 🪙`, x: rect.left + rect.width / 2, y: rect.top }]);
     setTimeout(() => setFloaters((f) => f.filter((x) => x.id !== fid)), 1400);
+    const cid = Date.now();
+    setCheer({ id: cid, text: CHEERS[Math.floor(Math.random() * CHEERS.length)] });
+    setTimeout(() => setCheer((c) => (c?.id === cid ? null : c)), 3200);
     if (r.leveledTo) {
       setLevelUp(r.leveledTo);
       setTimeout(() => {
@@ -81,10 +94,10 @@ function Index() {
       <div className="relative z-10 mx-auto w-full max-w-5xl px-4 py-8 sm:px-5 sm:py-10">
         <header className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="grid size-11 place-items-center rounded-xl bg-brand text-lg font-extrabold text-void">✦</span>
+            <img src={mascotImg} alt="" width={816} height={816} className="size-12" />
             <div>
               <h1 className="text-lg font-extrabold tracking-tight">StreakForge</h1>
-              <p className="text-[11px] text-ink/40">daily quest log · lvl {lvl.level}</p>
+              <p className="text-[11px] text-ink/40">the hero's quest ledger · lvl {lvl.level}</p>
             </div>
           </div>
           <div className="flex items-center gap-2.5">
@@ -202,7 +215,7 @@ function Index() {
                               onClick={(e) => onClaim(t.id, e)}
                               className="animate-claim rounded-full bg-claim px-5 py-2 text-sm font-extrabold text-ink"
                             >
-                              Claim Reward ✦
+                              ⚔ Claim Reward
                             </button>
                           ) : (
                             <span className={`font-mono text-[11px] font-bold ${t.claimed ? "text-gold" : "text-ink/40"}`}>
@@ -297,6 +310,15 @@ function Index() {
           {f.text}
         </span>
       ))}
+
+      {cheer && (
+        <div key={cheer.id} className="pointer-events-none fixed bottom-0 right-2 z-50 flex items-end gap-1 sm:right-8">
+          <div className="animate-pop mb-28 max-w-[200px] rounded-2xl border-2 border-gold bg-card px-4 py-3 text-sm font-semibold text-ink shadow-royal sm:max-w-[240px]">
+            {cheer.text}
+          </div>
+          <img src={mascotImg} alt="Ember the dragon cheering" width={816} height={816} className="animate-mascot w-36 drop-shadow-xl sm:w-48" />
+        </div>
+      )}
 
       {(levelUp || event) && (
         <div className="fixed inset-0 z-40 grid place-items-center bg-void/70 p-4 backdrop-blur-sm">
