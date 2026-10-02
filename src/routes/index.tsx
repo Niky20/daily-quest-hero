@@ -21,11 +21,11 @@ export const Route = createFileRoute("/")({
 const CONFETTI = ["#d4a63a", "#a3262a", "#2f7a4a", "#2c3e7a", "#f3e2b0"];
 const CHEERS = [
   "Huzzah! Another quest vanquished!",
-  "By my flames, you're unstoppable!",
+  "By my bow, you're unstoppable!",
   "The realm sings of your deeds!",
   "Onward, brave hero! Glory awaits!",
   "That's the spirit of a true champion!",
-  "Rawr! Your power grows!",
+  "Straight to the target, hero!",
 ];
 
 function Index() {
@@ -316,7 +316,7 @@ function Index() {
           <div className="animate-pop mb-28 max-w-[200px] rounded-2xl border-2 border-gold bg-card px-4 py-3 text-sm font-semibold text-ink shadow-royal sm:max-w-[240px]">
             {cheer.text}
           </div>
-          <img src={mascotImg} alt="Ember the dragon cheering" width={816} height={816} className="animate-mascot w-36 drop-shadow-xl sm:w-48" />
+          <img src={mascotImg} alt="Lyra the elf ranger cheering" width={816} height={816} className="animate-mascot w-36 drop-shadow-xl sm:w-48" />
         </div>
       )}
 
